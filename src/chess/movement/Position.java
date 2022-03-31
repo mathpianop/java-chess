@@ -5,8 +5,6 @@ public class Position {
   private final int yCoor;
 
   
-  
-
   Position(int xCoor, int yCoor) {
     this.xCoor = xCoor;
     this.yCoor = yCoor;
@@ -52,56 +50,97 @@ public class Position {
   }
 
   public Position getDiagonalShift(Horizontals hd, Verticals vd) {
+     //If neither direction is inline, throw exception
+     if ((hd == Horizontals.INLINE) || (vd == Verticals.INLINE)) {
+      throw new IllegalArgumentException("Directions not inline");
+    }
+
     //Return new Position shifted diagonally
     if (hd == Horizontals.RIGHT) {
       if (vd == Verticals.UP) {
         //RIGHT-UP
         return new Position(xCoor + 1, yCoor + 1);
-      } else if (vd == Verticals.DOWN) {
+      } else {
         //RIGHT-DOWN
         return new Position(xCoor + 1, yCoor - 1);
-      } else {
-        throw new IllegalArgumentException("Directions not diagonal");
       }
-    } else if (hd == Horizontals.LEFT) {
+    } else {
       if (vd == Verticals.UP) {
         //LEFT-UP
         return new Position(xCoor - 1, yCoor + 1);
-      } else if (vd == Verticals.DOWN) {
+      } else {
         //LEFT-DOWN
         return new Position(xCoor - 1, yCoor - 1);
-      } else {
-        throw new IllegalArgumentException("Directions not diagonal");
       }
-    } else {
-      throw new IllegalArgumentException("Directions not diagonal");
     }
   }
 
   public Position getInlineShift(Horizontals hd, Verticals vd) {
+
+    //If neither direction is inline, throw exception
+    if (!(hd == Horizontals.INLINE) && !(vd == Verticals.INLINE)) {
+      throw new IllegalArgumentException("Directions not inline");
+    }
+
     //Return new Position shifted inline
     if (hd == Horizontals.INLINE) {
       if (vd == Verticals.UP) {
         //UP
         return new Position(xCoor, yCoor + 1);
-      } else if (vd == Verticals.DOWN) {
+      } else {
         //DOWN
         return new Position(xCoor, yCoor - 1);
-      } else {
-        throw new IllegalArgumentException("Directions not inline");
       }
-    } else if (vd == Verticals.INLINE) {
+    } else {
       if (hd == Horizontals.RIGHT) {
         //RIGHT
         return new Position(xCoor + 1, yCoor);
-      } else if (hd == Horizontals.LEFT) {
+      } else {
         //LEFT
         return new Position(xCoor - 1, yCoor);
+      }
+    }
+  }
+
+  //Wide version
+  public Position getKnightShift(Horizontals twoSpace, Verticals oneSpace) {
+    if (twoSpace == Horizontals.INLINE || oneSpace == Verticals.INLINE) {
+      throw new IllegalArgumentException("Neither direction can be inline for a knight shift");
+    }
+    
+    if (twoSpace == Horizontals.RIGHT) {
+      if (oneSpace == Verticals.UP) {
+        return new Position(xCoor + 2, yCoor + 1);
       } else {
-        throw new IllegalArgumentException("Directions not inline");
+        return new Position(xCoor + 2, yCoor - 1);
       }
     } else {
-      throw new IllegalArgumentException("Directions not inline");
+      if (oneSpace == Verticals.UP) {
+        return new Position(xCoor - 2, yCoor + 1);
+      } else {
+        return new Position(xCoor - 2, yCoor - 1);
+      }
+    }
+  }
+
+  //Tall version
+  public Position getKnightShift(Verticals twoSpace, Horizontals oneSpace) {
+    if (twoSpace == Verticals.INLINE || oneSpace == Horizontals.INLINE) {
+      throw new IllegalArgumentException("Neither direction can be inline for a knight shift");
+    }
+
+    if (twoSpace == Verticals.UP) {
+      if (oneSpace == Horizontals.RIGHT) {
+        return new Position(xCoor + 1, yCoor + 2);
+      } else {
+        return new Position(xCoor + 1, yCoor - 2);
+      }
+    } else {
+      if (oneSpace == Horizontals.RIGHT) {
+        return new Position(xCoor - 1, yCoor + 2);
+      } else {
+        return new Position(xCoor - 1, yCoor - 2);
+      }
     }
   }
 

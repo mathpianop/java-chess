@@ -1,11 +1,10 @@
 package chess.pieces;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import chess.movement.*;
 
 public class Bishop extends Piece {
-  Bishop(Position intialPosition, Color color) {
+  public Bishop(Position intialPosition, Color color) {
     super(intialPosition, color);
   }
 
@@ -14,13 +13,12 @@ public class Bishop extends Piece {
   }
 
   public List<Move> getLegalMoves() {
-        return Stream.of(getDiagonalEndpointsStream(Horizontals.RIGHT, Verticals.UP),
+    Stream<Stream<Position>> streamOfStreams = Stream.of(getDiagonalEndpointsStream(Horizontals.RIGHT, Verticals.UP),
                           getDiagonalEndpointsStream(Horizontals.RIGHT, Verticals.DOWN),
                           getDiagonalEndpointsStream(Horizontals.LEFT, Verticals.UP),
-                          getDiagonalEndpointsStream(Horizontals.LEFT, Verticals.DOWN))
-                    .flatMap(s -> s)
-                    .map(possiblePosition -> new Move(currentPosition, possiblePosition))
-                    .collect(Collectors.toList());
+                          getDiagonalEndpointsStream(Horizontals.LEFT, Verticals.DOWN));
+    
+    return getMovesFromEndpointsStream(streamOfStreams);
   }
   
 }
