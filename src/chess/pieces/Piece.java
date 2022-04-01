@@ -7,8 +7,8 @@ public abstract class Piece {
   protected boolean captured;
   public final Color color;
 
-  public Piece(Position intialPosition, Color color) {
-    this.currentPosition = intialPosition;
+  public Piece(Color color, Position initialPosition) {
+    this.currentPosition = initialPosition;
     this.color = color;
   }
 

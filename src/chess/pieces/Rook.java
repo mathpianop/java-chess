@@ -3,8 +3,18 @@ package chess.pieces;
 import chess.movement.*;
 
 public class Rook extends Piece {
-  public Rook(Position intialPosition, Color color) {
-    super(intialPosition, color);
+  public Rook(Color color, int column) {
+    super(color, getInitialPosition(color, column));
+  }
+
+  static Position getInitialPosition(Color color, int column) {
+    if (column == 1) {
+      return (color == Color.RED ? new Position(1,8) : new Position(1,1));
+    } else if (column == 8) {
+      return (color == Color.RED ? new Position(8,8) : new Position(8,1));
+    } else {
+      throw new IllegalArgumentException("Rook must be placed on columns 1 or 8");
+    }
   }
 
   public boolean isMoveLegal(Move move) {

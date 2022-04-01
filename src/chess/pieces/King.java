@@ -10,8 +10,12 @@ import chess.movement.Position;
 import chess.movement.Verticals;
 
 public class King extends Piece {
-  public King(Position intialPosition, Color color) {
-    super(intialPosition, color);
+  public King(Color color) {
+    super(color, getInitialPosition(color));
+  }
+
+  static Position getInitialPosition(Color color) {
+    return (color == Color.RED ? new Position(5,8) : new Position(5,1));
   }
 
   private boolean isInlineOrDiagonal(Move move) {

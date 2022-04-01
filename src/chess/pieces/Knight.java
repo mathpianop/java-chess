@@ -6,8 +6,18 @@ import java.util.stream.Collectors;
 import chess.movement.*;
 
 public class Knight extends Piece {
-  public Knight(Position intialPosition, Color color) {
-    super(intialPosition, color);
+  public Knight(Color color, int column) {
+    super(color, getInitialPosition(color, column));
+  }
+
+  static Position getInitialPosition(Color color, int column) {
+    if (column == 2) {
+      return (color == Color.RED ? new Position(2,8) : new Position(2,1));
+    } else if (column == 7) {
+      return (color == Color.RED ? new Position(7,8) : new Position(7,1));
+    } else {
+      throw new IllegalArgumentException("Knight must be placed on columns 2 or 7");
+    }
   }
 
   public boolean isMoveLegal(Move move) {

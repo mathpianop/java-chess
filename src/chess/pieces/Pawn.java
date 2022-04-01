@@ -3,8 +3,16 @@ package chess.pieces;
 import chess.movement.*;
 
 public class Pawn extends Piece {
-  public Pawn(Position intialPosition, Color color) {
-    super(intialPosition, color);
+  public Pawn(Color color, int column) {
+    super(color, getInitialPosition(color, column));
+  }
+
+  static Position getInitialPosition(Color color, int column) {
+    if (column >= 1 && column <= 8) {
+      return (color == Color.RED ? new Position(column,7) : new Position(column,2));
+    } else {
+      throw new IllegalArgumentException("Column outside of 1-8");
+    }
   }
 
   private boolean isNonCaptureMove(Move move) {
