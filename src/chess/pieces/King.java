@@ -1,6 +1,5 @@
 package chess.pieces;
 
-import java.util.List;
 
 import chess.movement.Move;
 import chess.movement.Position;
