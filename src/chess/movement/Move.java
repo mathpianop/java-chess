@@ -47,6 +47,7 @@ public class Move {
     } else if (orientation == Orientation.INLINE) {
       return getInlineMidpoints();
     } else {
+      //Knight version, no midpoints
       return new ArrayList<Position>();
     }
   }
@@ -64,6 +65,10 @@ public class Move {
             pos -> pos.equals(endPos), 
             pos -> pos.getInlineShift(hd, vd))
     .collect(Collectors.toList());
+  }
+
+  public int distance() {
+    return Position.distanceBetween(startPos, endPos);
   }
   
 }

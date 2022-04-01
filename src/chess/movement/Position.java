@@ -45,6 +45,13 @@ public class Position {
     }
   }
 
+  static int distanceBetween(Position pos1, Position pos2) {
+    return Math.max(
+      Math.abs(pos1.xCoor - pos2.xCoor), 
+      Math.abs(pos1.yCoor - pos2.yCoor)
+    );
+  }
+
   public boolean isOnBoard() {
     return xCoor <= 8 && xCoor >= 1 && yCoor <= 8 && yCoor >= 1;
   }
@@ -107,7 +114,7 @@ public class Position {
     if (twoSpace == Horizontals.INLINE || oneSpace == Verticals.INLINE) {
       throw new IllegalArgumentException("Neither direction can be inline for a knight shift");
     }
-    
+
     if (twoSpace == Horizontals.RIGHT) {
       if (oneSpace == Verticals.UP) {
         return new Position(xCoor + 2, yCoor + 1);
