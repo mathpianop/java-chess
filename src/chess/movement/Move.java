@@ -6,11 +6,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Move {
-  private final Position startPos;
-  private final Position endPos;
-  private final Horizontals hd;
-  private final Verticals vd;
+  public final Position startPos;
+  public final Position endPos;
+  public final Horizontals hd;
+  public final Verticals vd;
   public final Orientation orientation;
+  private boolean isCapture = false;
 
   public enum Orientation {
     INLINE, DIAGONAL, KNIGHT
@@ -69,6 +70,14 @@ public class Move {
 
   public int distance() {
     return Position.distanceBetween(startPos, endPos);
+  }
+
+  public void setCapture() {
+    isCapture = true;
+  }
+
+  public boolean isCapture() {
+    return isCapture;
   }
   
 }
