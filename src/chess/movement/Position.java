@@ -1,8 +1,8 @@
 package chess.movement;
 
 public class Position {
-  private final int xCoor;
-  private final int yCoor;
+  public final int xCoor;
+  public final int yCoor;
 
   
   public Position(int xCoor, int yCoor) {

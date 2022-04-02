@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 import chess.movement.*;
 
 public class Knight extends Piece {
+  char symbol;
+
   public Knight(Color color, int column) {
     super(color, getInitialPosition(color, column));
+    this.symbol = (color == Color.RED ?  '♞' : '♘');
   }
 
   static Position getInitialPosition(Color color, int column) {
@@ -18,6 +21,10 @@ public class Knight extends Piece {
     } else {
       throw new IllegalArgumentException("Knight must be placed on columns 2 or 7");
     }
+  }
+  
+  public char getSymbol() {
+    return this.symbol;
   }
 
   public boolean isMoveLegal(Move move) {

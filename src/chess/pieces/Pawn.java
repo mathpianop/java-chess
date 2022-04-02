@@ -3,8 +3,15 @@ package chess.pieces;
 import chess.movement.*;
 
 public class Pawn extends Piece {
+  char symbol;
+
   public Pawn(Color color, int column) {
     super(color, getInitialPosition(color, column));
+    this.symbol = (color == Color.RED ?  '♟' : '♙');
+  }
+
+  public char getSymbol() {
+    return this.symbol;
   }
 
   static Position getInitialPosition(Color color, int column) {

@@ -10,8 +10,15 @@ import chess.movement.Position;
 import chess.movement.Verticals;
 
 public class King extends Piece {
+  private final char symbol;
+
   public King(Color color) {
     super(color, getInitialPosition(color));
+    this.symbol = (color == Color.RED ?  '♚' : '♔');
+  }
+
+  public char getSymbol() {
+    return this.symbol;
   }
 
   static Position getInitialPosition(Color color) {

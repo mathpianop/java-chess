@@ -1,16 +1,4 @@
--Color enum
 
--Piece
-  -Calculate legal moves on an empty board
-  -Knows whether a move is legal or not
-  -has location
-  -Knows whether it is captured or not
-  -Knows whether it is red or white
--Move
-  -Has endpoint and startpoint
-  -calculates midpoints
--Board
-  -Contains Piece objects
 
 
 Steps to determine move permissibility (assuming endpoint/startpoint is on the board):

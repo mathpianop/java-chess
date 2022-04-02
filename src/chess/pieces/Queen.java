@@ -5,8 +5,14 @@ package chess.pieces;
 import chess.movement.*;
 
 public class Queen extends Piece {
+  char symbol; 
   public Queen(Color color) {
     super(color, getInitialPosition(color));
+    this.symbol = (color == Color.RED ?  '♛' : '♕');
+  }
+
+  public char getSymbol() {
+    return this.symbol;
   }
 
   static Position getInitialPosition(Color color) {

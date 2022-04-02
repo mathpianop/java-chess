@@ -3,8 +3,11 @@ package chess.pieces;
 import chess.movement.*;
 
 public class Bishop extends Piece {
+  char symbol;
+
   public Bishop(Color color, int column) {
     super(color, getInitialPosition(color, column));
+    this.symbol = (color == Color.RED ?  '♝' : '♗');
   }
 
   static Position getInitialPosition(Color color, int column) {
@@ -15,6 +18,10 @@ public class Bishop extends Piece {
     } else {
       throw new IllegalArgumentException("Bishop must be placed on columns 3 or 6");
     }
+  }
+
+  public char getSymbol() {
+    return this.symbol;
   }
 
   public boolean isMoveLegal(Move move) {
