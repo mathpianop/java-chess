@@ -30,7 +30,7 @@ public class King extends Piece {
             (move.orientation == Move.Orientation.DIAGONAL);
   }
 
-  public boolean isMoveLegal(Move move) {
+  public boolean isLegalMove(Move move) {
     return isInlineOrDiagonal(move) && (move.distance() == 1);
   }
 

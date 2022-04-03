@@ -32,7 +32,7 @@ public class Pawn extends Piece {
             move.isCapture();
   }
 
-  public boolean isMoveLegal(Move move) {
+  public boolean isLegalMove(Move move) {
    return isCaptureMove(move) || isNonCaptureMove(move);
   }
 }

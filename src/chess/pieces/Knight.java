@@ -27,7 +27,7 @@ public class Knight extends Piece {
     return this.symbol;
   }
 
-  public boolean isMoveLegal(Move move) {
+  public boolean isLegalMove(Move move) {
     return (move.orientation == Move.Orientation.KNIGHT);
   }
 
