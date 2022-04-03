@@ -1,3 +1,9 @@
-Finish Move::distance method
+Fix Pawn isLegalMove
 
-Put initialPosition logic into the hands of the pieces (as much as possible)
+
+
+Finish Play class
+Fill Turn class
+Fill Check class
+Finish Printer class
+Finish Game class 

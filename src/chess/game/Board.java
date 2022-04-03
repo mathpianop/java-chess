@@ -1,38 +1,43 @@
 package chess.game;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
+import chess.movement.Position;
 import chess.pieces.*;
 
 public class Board {
-  Side red = new Side(Color.RED);
-  Side white = new Side(Color.WHITE);
+
+  private final List<Piece> pieces;
+
+  Board() {
+    pieces = new ArrayList<>();
+    pieces.addAll(Side.generate(Color.RED));
+    pieces.addAll(Side.generate(Color.WHITE));
+  }
   
   void printBoard() {
-    Character[][] board = new Character[8][8];
-
-    //Fill 2d-array board with '-'
-    Arrays.stream(board).forEach(row -> Arrays.fill(row, '-'));
-    
-    red.pieces.forEach(piece -> {
-      board[piece.getCurrentPosition().yCoor - 1][piece.getCurrentPosition().xCoor - 1] =
-        piece.getSymbol();
-    });
-
-    white.pieces.forEach(piece -> {
-      board[piece.getCurrentPosition().yCoor - 1][piece.getCurrentPosition().xCoor - 1] =
-        piece.getSymbol();
-    });
-
-    Arrays.stream(board)
-          .map(row -> Arrays.stream(row)
-                            .map(c -> c.toString())
-                            .collect(Collectors.joining(" ")))
-          .forEach(System.out::println);
+    Printer.printBoard(this);
   }
 
-  public static void main(String[] args) {
-    new Board().printBoard();
+  public List<Piece> getPieces() {
+    List<Piece> copyOfPieces = new ArrayList<>(pieces);
+    copyOfPieces.removeIf(Piece::isCaptured);
+    return copyOfPieces;
+  }
+
+  Optional<Piece> getPieceAt(Position pos) {
+    //Return whether any piece on either side 
+   return pieces.stream()
+                .filter(piece -> !piece.isCaptured())
+                .filter(piece -> piece.getCurrentPosition().equals(pos))
+                .findAny();
+  }
+
+  boolean isOccupiedAt(Position pos) {
+    //Return whether any piece on either side 
+   return pieces.stream()
+                .anyMatch(piece -> piece.getCurrentPosition().equals(pos));
   }
 }

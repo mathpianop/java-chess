@@ -8,10 +8,9 @@ import java.util.stream.IntStream;
 import chess.pieces.*;
 
 public class Side {
-  List<Piece> pieces = new ArrayList<>();
+  static List<Piece> generate(Color color) {
+    List<Piece> pieces = new ArrayList<>();
 
-  
-  Side(Color color) {
     List<Pawn> pawns = IntStream.rangeClosed(1,8)
                                 .mapToObj(i -> new Pawn(color, i))
                                 .collect(Collectors.toList());
@@ -28,5 +27,7 @@ public class Side {
 
     pieces.addAll(pawns);
     pieces.addAll(bigPieces);
-  } 
+
+    return pieces;
+  }
 }

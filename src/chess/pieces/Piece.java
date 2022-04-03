@@ -24,6 +24,10 @@ public abstract class Piece {
     lastMove = null;
   }
 
+  public boolean isCaptured() {
+    return captured;
+  }
+
   public void setCaptured(boolean bool) {
     captured = bool;
   }
@@ -32,6 +36,6 @@ public abstract class Piece {
     return this.currentPosition;
   }
 
-  public abstract boolean isMoveLegal(Move move);
+  public abstract boolean isLegalMove(Move move);
   public abstract char getSymbol();
 }

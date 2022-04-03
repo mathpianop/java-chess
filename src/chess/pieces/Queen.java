@@ -19,7 +19,7 @@ public class Queen extends Piece {
     return (color == Color.RED ? new Position(4,8) : new Position(4,1));
   }
 
-  public boolean isMoveLegal(Move move) {
+  public boolean isLegalMove(Move move) {
     return (move.orientation == Move.Orientation.DIAGONAL ||
             move.orientation == Move.Orientation.INLINE);
   }

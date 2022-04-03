@@ -24,7 +24,7 @@ public class Bishop extends Piece {
     return this.symbol;
   }
 
-  public boolean isMoveLegal(Move move) {
+  public boolean isLegalMove(Move move) {
     return (move.orientation == Move.Orientation.DIAGONAL);
   }
 

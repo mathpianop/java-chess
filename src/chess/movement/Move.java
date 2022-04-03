@@ -79,5 +79,9 @@ public class Move {
   public boolean isCapture() {
     return isCapture;
   }
+
+  public Move reverse() {
+    return new Move(endPos, startPos);
+  }
   
 }

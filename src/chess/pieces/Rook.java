@@ -24,7 +24,7 @@ public class Rook extends Piece {
     }
   }
 
-  public boolean isMoveLegal(Move move) {
+  public boolean isLegalMove(Move move) {
     return (move.orientation == Move.Orientation.INLINE);
   }
 }
