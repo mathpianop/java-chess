@@ -22,14 +22,14 @@ How to check for checkmate
 
 
 Steps for a turn
-0. Specify whether King is in check in the constructor
-1. Get a move from the user
-2. Create play based on move
+1. Get piece/endpos from the user
+2. Create play
 3. Determine permissibility of play
 4. If not permissible, say so
 5. Repeat 1-3 as necessary
-6. Print summary of move
-7. Print the board
+6. Make play
+7. Print summary of move
+8. Print the board
 
 Steps for a game
 1. Print welcome and starting board

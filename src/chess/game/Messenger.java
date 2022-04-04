@@ -3,7 +3,11 @@ package chess.game;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class Printer {
+import chess.movement.Position;
+import chess.pieces.Color;
+import chess.pieces.Piece;
+
+public class Messenger {
   static void printBoard(Board board) {
     Character[][] printableBoard = new Character[8][8];
 
@@ -16,8 +20,6 @@ public class Printer {
         piece.getSymbol();
     });
 
-
-
     //Convert each row array to a single string and then print it
     Arrays.stream(printableBoard)
           .map(row -> Arrays.stream(row)
@@ -25,4 +27,15 @@ public class Printer {
                             .collect(Collectors.joining(" ")))
           .forEach(System.out::println);
   }
+
+  static Piece getPiece(Color color) {
+    
+  }
+
+  static Position getEndPos(Color color) {
+    
+  }
+
+  static void printProblem(String string);
+  static void summarizePlay(Play play);
 }
