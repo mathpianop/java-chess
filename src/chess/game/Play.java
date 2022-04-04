@@ -23,6 +23,7 @@ public class Play {
 
     try {
       this.move = new Move(piece.getCurrentPosition(), endPos);
+      targetPiece.ifPresent(p -> move.setCapture());
     } catch(NonExistantMoveException e) {
       this.reason = e.getMessage();
     }

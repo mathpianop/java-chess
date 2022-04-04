@@ -1,9 +1,3 @@
-
-Play requires:
--Board
--Piece
--End Position
-
 Steps to determine Play permissibility (assuming endpoint/startpoint is on the board):
 --------------- (Valid move in general / handled by Move constructor)
 1. Check if end position is on board
