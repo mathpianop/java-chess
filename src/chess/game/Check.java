@@ -21,7 +21,8 @@ public class Check {
     move.setCapture();
     return piece.isLegalMove(move);
   } 
-  static boolean isInCheck(Color color, Board board) {
+
+  static boolean isInCheck(Board board, Color color) {
     List<Piece> pieces = board.getPieces();
     Piece king = pieces.stream()
                       .filter(piece -> piece.color == color)
@@ -32,5 +33,9 @@ public class Check {
     return pieces.stream()
                   .filter(piece -> piece.color == color.opposite())
                   .anyMatch(piece -> isLegalMove(piece, king.getCurrentPosition()));
+  }
+
+  static boolean checkmate(Board board, Color threatenedColor) {
+
   }
 }

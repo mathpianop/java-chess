@@ -16,7 +16,7 @@ How to tell if a king is in check
 
 
 How to check for checkmate
-1. Check if King has a legal move that can get him out of check
+1. Check if King has a legal play that can get him out of check
 2. Check if any friendly piece can capture the checking piece (and whether that actually fixes the situation)
 3. Check if a friendly piece can block the checking piece(s) (and whether that actually fixes the situation)
 

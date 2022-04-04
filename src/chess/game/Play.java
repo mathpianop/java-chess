@@ -57,7 +57,7 @@ public class Play {
   private boolean isSafe() {
     boolean safe;
     makePlay();
-    safe = !Check.isInCheck(piece.color, board);
+    safe = !Check.isInCheck(board, piece.color);
     reset();
     return safe;
   }

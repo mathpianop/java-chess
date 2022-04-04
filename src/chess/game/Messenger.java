@@ -38,4 +38,6 @@ public class Messenger {
 
   static void printProblem(String string);
   static void summarizePlay(Play play);
+  static void printWelcome();
+  static void declareVictory(Color color);
 }
