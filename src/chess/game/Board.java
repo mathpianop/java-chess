@@ -18,7 +18,7 @@ public class Board {
   }
   
   void printBoard() {
-    Printer.printBoard(this);
+    Messenger.printBoard(this);
   }
 
   public List<Piece> getPieces() {
@@ -26,6 +26,7 @@ public class Board {
     copyOfPieces.removeIf(Piece::isCaptured);
     return copyOfPieces;
   }
+
 
   Optional<Piece> getPieceAt(Position pos) {
     //Return whether any piece on either side 

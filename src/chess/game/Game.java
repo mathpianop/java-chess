@@ -1,6 +1,10 @@
 package chess.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import chess.pieces.Color;
+import chess.pieces.Piece;
 
 public class Game {
   Board board;
@@ -13,15 +17,15 @@ public class Game {
     Messenger.printWelcome();
     Messenger.printBoard(board);
     Color color = Color.WHITE;
-    boolean inCheck = false;
+    List<Piece> checkingPieces = new ArrayList<>();
     do {
       //Take turn
       Turn.takeTurn(board, color);
-      //Check for check
-      inCheck = Check.isInCheck(board, color);
       //Switch which color's turn it is
       color = color.opposite();
-    } while (inCheck && Check.checkmate(board, color));
+      //Check for check
+      checkingPieces = Check.getCheckingPieces(board, color);
+    } while (checkingPieces.size() == 0 || !Check.checkmate(board, color, checkingPieces));
 
     Messenger.declareVictory(color.opposite());
 

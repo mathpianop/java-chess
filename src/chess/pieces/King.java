@@ -34,7 +34,7 @@ public class King extends Piece {
     return isInlineOrDiagonal(move) && (move.distance() == 1);
   }
 
-  public List<Move> getLegalMoves() {
+  public List<Position> getLegalEndPositions() {
     Stream<Position> stream = Stream.of(
       currentPosition.getInlineShift(Horizontals.INLINE, Verticals.UP),
       currentPosition.getInlineShift(Horizontals.INLINE, Verticals.DOWN),
@@ -47,7 +47,6 @@ public class King extends Piece {
     );
     
     return stream.filter(Position::isOnBoard)
-                  .map(pos -> new Move(currentPosition, pos))
                   .collect(Collectors.toList());
   }
 
