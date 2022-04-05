@@ -7,8 +7,8 @@ import chess.pieces.Piece;
 public class Turn {
 
   static void takeTurn(Board board, Color color) {
-    Piece piece  = Messenger.getPiece(color);
-    Position endPos = Messenger.getEndPos(color);
+    Piece piece  = Messenger.getPiece(board, color);
+    Position endPos = Messenger.getEndPos(board, color);
     Play play;
 
     //Keep asking for plays from user until a legal one is found

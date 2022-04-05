@@ -1,6 +1,8 @@
 package chess.game;
 
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import chess.movement.Position;
@@ -8,6 +10,8 @@ import chess.pieces.Color;
 import chess.pieces.Piece;
 
 public class Messenger {
+  private final static char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'h'};
+
   static void printBoard(Board board) {
     Character[][] printableBoard = new Character[8][8];
 
@@ -28,16 +32,94 @@ public class Messenger {
           .forEach(System.out::println);
   }
 
-  static Piece getPiece(Color color) {
+  private static boolean inputIsValid(String inputString) {
+    if (inputString.length() != 2) return false;
     
+    //inputString must be two characters: a-h, 1-8
+    return inputString.charAt(0) >= 'a' && 
+            inputString.charAt(0) <= 'h' &&
+            inputString.charAt(1) >= 1 &&
+            inputString.charAt(1) <= 8;
   }
 
-  static Position getEndPos(Color color) {
-    
+  private static Optional<Piece> getPieceFromUserInput(Board board, String inputString) {
+    Position position = getPositionFromUserInput(board, inputString);
+    return board.getPieceAt(position);
   }
 
-  static void printProblem(String string);
-  static void summarizePlay(Play play);
-  static void printWelcome();
-  static void declareVictory(Color color);
+  private static Position getPositionFromUserInput(Board board, String inputString) {
+    int xCoor = Arrays.binarySearch(letters, inputString.charAt(0));
+    int yCoor = inputString.charAt(1);
+    return new Position(xCoor, yCoor);
+  }
+
+  static Piece getPiece(Board board, Color color) {
+    String inputString;
+
+    System.out.println("Enter starting position");
+    try(Scanner scanner = new Scanner(System.in)) {
+      while (true) {
+        inputString = scanner.nextLine();
+
+        if (!inputIsValid(inputString)) {
+          System.out.println("That is not a valid position. Please try again");
+          continue;
+        }
+         
+        Optional<Piece> piece = getPieceFromUserInput(board, inputString);
+        if (!piece.isPresent()) {
+          System.out.println("There is no piece at that position. Please try again");
+          continue;
+        }
+
+        return piece.get();
+      }
+    }
+  }
+
+  static Position getEndPos(Board board, Color color) {
+    String inputString;
+
+    System.out.println("Enter starting position");
+    try(Scanner scanner = new Scanner(System.in)) {
+      while (true) {
+        inputString = scanner.nextLine();
+
+        if (!inputIsValid(inputString)) {
+          System.out.println("That is not a valid position. Please try again");
+          continue;
+        }
+         
+        return getPositionFromUserInput(board, inputString);
+      }
+    }
+  }
+
+  static void printProblem(String problem) {
+    System.out.println("Not a valid play: " + problem);
+  }
+
+  static void summarizePlay(Play play) {
+    Piece piece = play.piece;
+   play.getMove().ifPresent(move -> {
+    System.out.println(piece + "to" + move.endPos);
+   });
+
+   play.targetPiece.ifPresent(targetPiece -> {
+    System.out.println("Capture" + targetPiece);
+   });
+  }
+
+  static void printWelcome() {
+    System.out.println("Welcome to Ruby chess!");
+    System.out.println("For each turn, enter a starting position for your piece (or enter 'castle')");
+    System.out.println("Enter your position using a1, b4, e6, etc");
+    System.out.println("a-h refer to the columns, 1-8 to the rows");
+    System.out.println("a1 corresponds to the lower left hand corner, while h8 corresponds to the upper right");
+    System.out.println("Then, enter the position to which you wish to move");
+  }
+
+  static void declareVictory(Color color) {
+    System.out.println(color + "wins!");
+  }
 }

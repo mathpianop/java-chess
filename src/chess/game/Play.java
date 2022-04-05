@@ -6,12 +6,12 @@ import chess.movement.*;
 import chess.pieces.Piece;
 
 public class Play {
-  Board board;
-  Piece piece;
-  Optional<Piece> targetPiece;
-  Position endPos;
-  Move move;
-  String reason;
+  final Board board;
+  final Piece piece;
+  final Optional<Piece> targetPiece;
+  final Position endPos;
+  private Move move;
+  private String reason;
   
   
 

@@ -58,13 +58,13 @@ public class Check {
 
   
 
-  static Stream<Play> getCounterAttacks(Board board, List<Piece> checkingPieces, Piece defendingPiece) {
+  private static Stream<Play> getCounterAttacks(Board board, List<Piece> checkingPieces, Piece defendingPiece) {
     return checkingPieces.stream()
                 .map(Piece::getCurrentPosition)
                 .map(checkingPos -> new Play(board, defendingPiece, checkingPos));
   }
 
-  static Stream<Play> getBlockingPlays(Board board, List<Piece> pieces, Color threatenedColor, Position midpoint) {
+  private static Stream<Play> getBlockingPlays(Board board, List<Piece> pieces, Color threatenedColor, Position midpoint) {
     return pieces.stream()
                     .filter(piece -> piece.color == threatenedColor)
                     .map(defendingPiece -> new Play(board, defendingPiece, midpoint));
@@ -75,7 +75,7 @@ public class Check {
   static boolean checkmate(Board board, Color threatenedColor, List<Piece> checkingPieces) {
     List<Piece> pieces = board.getPieces();
     King king = getKing(pieces, threatenedColor);
-    
+
     boolean canEscape = king.getLegalEndPositions()
                             .stream()
                             .map(endPos -> new Play(board, king, endPos))

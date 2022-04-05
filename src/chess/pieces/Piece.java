@@ -36,6 +36,10 @@ public abstract class Piece {
     return this.currentPosition;
   }
 
+  public String toString() {
+    return this.color + " " + this.getClass().getName();
+  }
+
   public abstract boolean isLegalMove(Move move);
   public abstract char getSymbol();
 }
