@@ -1,7 +1,7 @@
-Fill Turn class
+Fix next line bug Messenger line 88
+Add escape mechanism
 
-Finish Printer class
 
-Finish Game class 
+
 
 Refactor Check to use instances instead of static methods

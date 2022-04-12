@@ -7,12 +7,14 @@ import chess.pieces.Piece;
 public class Turn {
 
   static void takeTurn(Board board, Color color) {
-    Piece piece  = Messenger.getPiece(board, color);
-    Position endPos = Messenger.getEndPos(board, color);
+    Piece piece;
+    Position endPos;
     Play play;
 
     //Keep asking for plays from user until a legal one is found
     while (true) {
+      piece  = Messenger.getPiece(board, color);
+      endPos = Messenger.getEndPos(board, color);
       play = new Play(board, piece, endPos);
       if (play.isPermissible()) {
         break;

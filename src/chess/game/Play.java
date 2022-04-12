@@ -35,16 +35,27 @@ public class Play {
   }
 
   private boolean isValidMove() {
+    //Reason already supplied by exception catch in constructor
     return (move != null);
   }
 
+  private boolean isLegalMove() {
+    boolean isLegalMove = piece.isLegalMove(move);
+    if (!isLegalMove) reason = "That is not a valid move for that piece";
+    return isLegalMove;
+  }
+
   private boolean midpointsClear() {
-    return move.getMidpoints().stream().anyMatch(board::isOccupiedAt);
+    boolean midpointsClear = move.getMidpoints().stream().noneMatch(board::isOccupiedAt);
+    if (!midpointsClear) reason = "There is a piece blocking that move";
+    return midpointsClear;
   }
 
   private boolean friendlyPieceOnEndpoint() {
     if (targetPiece.isPresent()) {
-      return targetPiece.get().color == piece.color;
+      boolean friendlyPieceOnEndpoint = targetPiece.get().color == piece.color;
+      if (friendlyPieceOnEndpoint) reason = "There is a friendly piece on the end position";
+      return friendlyPieceOnEndpoint;
     } else {
       return false;
     }
@@ -59,11 +70,12 @@ public class Play {
     makePlay();
     safe = !Check.isInCheck(board, piece.color);
     reset();
+    if (!safe) reason = "That move puts you king in check";
     return safe;
   }
 
   boolean isPermissible() {
-    return isValidMove() && piece.isLegalMove(move) && isClear() && isSafe();
+    return isValidMove() && isLegalMove() && isClear() && isSafe();
   }
 
   public void makePlay() {

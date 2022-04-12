@@ -11,6 +11,7 @@ import chess.pieces.Piece;
 
 public class Messenger {
   private final static char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'h'};
+  static Scanner scanner = new Scanner(System.in);
 
   static void printBoard(Board board) {
     Character[][] printableBoard = new Character[8][8];
@@ -34,12 +35,14 @@ public class Messenger {
 
   private static boolean inputIsValid(String inputString) {
     if (inputString.length() != 2) return false;
-    
+  
     //inputString must be two characters: a-h, 1-8
+    
     return inputString.charAt(0) >= 'a' && 
-            inputString.charAt(0) <= 'h' &&
-            inputString.charAt(1) >= 1 &&
-            inputString.charAt(1) <= 8;
+          inputString.charAt(0) <= 'h' &&
+          Integer.parseInt(inputString.substring(1)) >= 1 &&
+          Integer.parseInt(inputString.substring(1)) <= 8;
+  
   }
 
   private static Optional<Piece> getPieceFromUserInput(Board board, String inputString) {
@@ -48,8 +51,8 @@ public class Messenger {
   }
 
   private static Position getPositionFromUserInput(Board board, String inputString) {
-    int xCoor = Arrays.binarySearch(letters, inputString.charAt(0));
-    int yCoor = inputString.charAt(1);
+    int xCoor = Arrays.binarySearch(letters, inputString.charAt(0)) + 1;
+    int yCoor = Integer.parseInt(inputString.substring(1));
     return new Position(xCoor, yCoor);
   }
 
@@ -57,7 +60,6 @@ public class Messenger {
     String inputString;
 
     System.out.println("Enter starting position");
-    try(Scanner scanner = new Scanner(System.in)) {
       while (true) {
         inputString = scanner.nextLine();
 
@@ -74,14 +76,13 @@ public class Messenger {
 
         return piece.get();
       }
-    }
   }
 
   static Position getEndPos(Board board, Color color) {
     String inputString;
 
-    System.out.println("Enter starting position");
-    try(Scanner scanner = new Scanner(System.in)) {
+    System.out.println("Enter end position");
+    
       while (true) {
         inputString = scanner.nextLine();
 
@@ -92,7 +93,6 @@ public class Messenger {
          
         return getPositionFromUserInput(board, inputString);
       }
-    }
   }
 
   static void printProblem(String problem) {
@@ -111,7 +111,7 @@ public class Messenger {
   }
 
   static void printWelcome() {
-    System.out.println("Welcome to Ruby chess!");
+    System.out.println("Welcome to Java chess!");
     System.out.println("For each turn, enter a starting position for your piece (or enter 'castle')");
     System.out.println("Enter your position using a1, b4, e6, etc");
     System.out.println("a-h refer to the columns, 1-8 to the rows");
