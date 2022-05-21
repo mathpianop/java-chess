@@ -57,9 +57,9 @@ public class Position {
   }
 
   public Position getDiagonalShift(Horizontals hd, Verticals vd) {
-     //If neither direction is inline, throw exception
+     //If either direction is inline, throw exception
      if ((hd == Horizontals.INLINE) || (vd == Verticals.INLINE)) {
-      throw new IllegalArgumentException("Directions not inline");
+      throw new IllegalArgumentException("Directions must not be inline");
     }
 
     //Return new Position shifted diagonally
@@ -84,9 +84,10 @@ public class Position {
 
   public Position getInlineShift(Horizontals hd, Verticals vd) {
 
-    //If neither direction is inline, throw exception
-    if (!(hd == Horizontals.INLINE) && !(vd == Verticals.INLINE)) {
-      throw new IllegalArgumentException("Directions not inline");
+    //If neither or both directions is inline, throw exception
+    if (!(hd == Horizontals.INLINE) && !(vd == Verticals.INLINE) || 
+        (hd == Horizontals.INLINE) && (vd == Verticals.INLINE)) {
+      throw new IllegalArgumentException("Exactly one direction must be inline");
     }
 
     //Return new Position shifted inline
@@ -140,11 +141,11 @@ public class Position {
       if (oneSpace == Horizontals.RIGHT) {
         return new Position(xCoor + 1, yCoor + 2);
       } else {
-        return new Position(xCoor + 1, yCoor - 2);
+        return new Position(xCoor - 1, yCoor + 2);
       }
     } else {
       if (oneSpace == Horizontals.RIGHT) {
-        return new Position(xCoor - 1, yCoor + 2);
+        return new Position(xCoor + 1, yCoor - 2);
       } else {
         return new Position(xCoor - 1, yCoor - 2);
       }

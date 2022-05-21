@@ -2,6 +2,6 @@ Fix next line bug Messenger line 88
 Add escape mechanism
 
 
+Testing:
 
-
-Refactor Check to use instances instead of static methods
+-Finish Position#getDiagonalShift, test exception throwing
