@@ -54,16 +54,17 @@ public class Move {
   }
 
   private List<Position> getDiagonalMidpoints() {
-    return Stream.iterate(startPos, 
-                    pos -> pos.equals(endPos), 
+    return Stream.iterate(startPos.getDiagonalShift(hd, vd), 
+                    pos -> !pos.equals(endPos), 
                     pos -> pos.getDiagonalShift(hd, vd))
+            .peek(System.out::println)
             .collect(Collectors.toList());
 
   }
 
   private List<Position> getInlineMidpoints() {
-    return Stream.iterate(startPos, 
-            pos -> pos.equals(endPos), 
+    return Stream.iterate(startPos.getInlineShift(hd, vd), 
+            pos -> !pos.equals(endPos), 
             pos -> pos.getInlineShift(hd, vd))
     .collect(Collectors.toList());
   }

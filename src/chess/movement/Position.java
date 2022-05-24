@@ -152,6 +152,9 @@ public class Position {
     }
   }
 
+  public String toString() {
+    return "[" + xCoor + "," + yCoor + "]";
+  }
   public boolean equals(Object o) {
     if (o instanceof Position ) {
       Position p = (Position) o;
