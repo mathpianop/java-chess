@@ -56,12 +56,21 @@ public class Messenger {
     return new Position(xCoor, yCoor);
   }
 
+  static String getInput() {
+    String inputString = scanner.nextLine();
+    if (inputString.equals("exit")) {
+      System.out.println("Goodbye...");
+      System.exit(0);
+    }
+    return inputString;
+  }
+
   static Piece getPiece(Board board, Color color) {
     String inputString;
 
     System.out.println("Enter starting position");
       while (true) {
-        inputString = scanner.nextLine();
+        inputString = getInput();
 
         if (!inputIsValid(inputString)) {
           System.out.println("That is not a valid position. Please try again");
@@ -84,7 +93,7 @@ public class Messenger {
     System.out.println("Enter end position");
     
       while (true) {
-        inputString = scanner.nextLine();
+        inputString = getInput();
 
         if (!inputIsValid(inputString)) {
           System.out.println("That is not a valid position. Please try again");

@@ -70,7 +70,7 @@ public class Play {
     makePlay();
     safe = !Check.isInCheck(board, piece.color);
     reset();
-    if (!safe) reason = "That move puts you king in check";
+    if (!safe) reason = "That move puts your king in check";
     return safe;
   }
 
