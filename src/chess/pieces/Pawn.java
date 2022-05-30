@@ -4,6 +4,7 @@ import chess.movement.*;
 
 public class Pawn extends Piece {
   char symbol;
+  public String rank = "Pawn";
 
   public Pawn(Color color, int column) {
     super(color, getInitialPosition(color, column));

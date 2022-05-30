@@ -11,6 +11,7 @@ import chess.movement.Verticals;
 
 public class King extends Piece {
   private final char symbol;
+  public String rank = "King";
 
   public King(Color color) {
     super(color, getInitialPosition(color));

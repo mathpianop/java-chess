@@ -4,6 +4,7 @@ import chess.movement.*;
 
 public class Rook extends Piece {
   char symbol;
+  public String rank = "Rook";
 
   public Rook(Color color, int column) {
     super(color, getInitialPosition(color, column));

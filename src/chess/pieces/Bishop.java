@@ -4,6 +4,7 @@ import chess.movement.*;
 
 public class Bishop extends Piece {
   char symbol;
+  public String rank = "Bishop";
 
   public Bishop(Color color, int column) {
     super(color, getInitialPosition(color, column));

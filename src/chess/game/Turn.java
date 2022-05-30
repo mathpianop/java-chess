@@ -14,7 +14,7 @@ public class Turn {
     //Keep asking for plays from user until a legal one is found
     while (true) {
       piece  = Messenger.getPiece(board, color);
-      endPos = Messenger.getEndPos(board, color);
+      endPos = Messenger.getEndPos(board, piece);
       play = new Play(board, piece, endPos);
       if (play.isPermissible()) {
         break;

@@ -87,10 +87,10 @@ public class Messenger {
       }
   }
 
-  static Position getEndPos(Board board, Color color) {
+  static Position getEndPos(Board board, Piece piece) {
     String inputString;
 
-    System.out.println("Enter end position");
+    System.out.println(piece + " to what position?");
     
       while (true) {
         inputString = getInput();

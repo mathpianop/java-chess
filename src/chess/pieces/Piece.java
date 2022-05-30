@@ -7,6 +7,7 @@ public abstract class Piece {
   protected boolean captured;
   public final Color color;
   private Move lastMove;
+  public String rank = "Piece";
 
   public Piece(Color color, Position initialPosition) {
     this.currentPosition = initialPosition;
@@ -15,6 +16,13 @@ public abstract class Piece {
 
   
   public void makeMove(Move move) {
+    if (!currentPosition.equals(move.startPos)) {
+      throw new IllegalArgumentException("Move must begin from piece's current position");
+    }
+
+    if (!isLegalMove(move)) {
+      throw new IllegalArgumentException("Move must be legal");
+    }
     currentPosition = move.endPos;
     lastMove = move;
   }
@@ -37,7 +45,7 @@ public abstract class Piece {
   }
 
   public String toString() {
-    return this.color + " " + this.getClass().getName();
+    return this.color + " " + this.getClass().getSimpleName();
   }
 
   public abstract boolean isLegalMove(Move move);

@@ -7,6 +7,7 @@ import chess.movement.*;
 
 public class Knight extends Piece {
   char symbol;
+  public String rank = "Knight";
 
   public Knight(Color color, int column) {
     super(color, getInitialPosition(color, column));
