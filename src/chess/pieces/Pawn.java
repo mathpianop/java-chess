@@ -5,6 +5,7 @@ import chess.movement.*;
 public class Pawn extends Piece {
   char symbol;
   public String rank = "Pawn";
+  private boolean moved;
 
   public Pawn(Color color, int column) {
     super(color, getInitialPosition(color, column));
@@ -23,17 +24,32 @@ public class Pawn extends Piece {
     }
   }
 
+  private boolean isCorrectDistance(Move move) {
+    if (!moved) {
+      return (move.distance() <= 2);
+    } else {
+      return (move.distance() == 1);
+    }
+  }
+
   private boolean isNonCaptureMove(Move move) {
-    return move.hd == Horizontals.INLINE && move.vd == Verticals.UP;
+    Verticals direction = (color == Color.WHITE ? Verticals.UP : Verticals.DOWN);
+    return move.hd == Horizontals.INLINE && move.vd == direction;
   }
 
   private boolean isCaptureMove(Move move) {
     return (move.hd == Horizontals.RIGHT || move.hd == Horizontals.LEFT) &&
             move.vd == Verticals.UP &&
+            move.distance() == 1 &&
             move.isCapture();
   }
 
   public boolean isLegalMove(Move move) {
-   return isCaptureMove(move) || isNonCaptureMove(move);
+   return (isCaptureMove(move) || isNonCaptureMove(move)) && isCorrectDistance(move);
+  }
+
+  public void makeMove(Move move) {
+    super.makeMove(move);
+    this.moved = true;
   }
 }

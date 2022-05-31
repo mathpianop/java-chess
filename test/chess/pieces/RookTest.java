@@ -1,5 +1,6 @@
 package chess.pieces;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -8,6 +9,13 @@ import chess.movement.Move;
 import chess.movement.Position;
 
 public class RookTest {
+    @Test
+    public void constructorThrowsExceptionIfNotAValidPlacement() {
+      assertThrows(IllegalArgumentException.class, () -> {
+        new Rook(Color.RED, 2);
+      });
+    }
+
     @Test
     public void isLegalMove_WorksForRightward() {
       Rook rook = new Rook(Color.RED, 1);
