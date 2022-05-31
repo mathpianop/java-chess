@@ -6,7 +6,6 @@ import chess.movement.*;
 
 public class Queen extends Piece {
   char symbol; 
-  public String rank;
 
   public Queen(Color color) {
     super(color, getInitialPosition(color));

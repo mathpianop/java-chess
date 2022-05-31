@@ -23,7 +23,6 @@ public class Board {
 
   public List<Piece> getPieces() {
     List<Piece> copyOfPieces = new ArrayList<>(pieces);
-    copyOfPieces.removeIf(Piece::isCaptured);
     return copyOfPieces;
   }
 
@@ -39,6 +38,7 @@ public class Board {
   boolean isOccupiedAt(Position pos) {
     //Return whether any piece on either side 
    return pieces.stream()
+                .filter(piece -> !piece.isCaptured())
                 .anyMatch(piece -> piece.getCurrentPosition().equals(pos));
   }
 }
