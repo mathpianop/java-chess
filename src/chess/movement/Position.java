@@ -163,4 +163,9 @@ public class Position {
       return false;
     }
   }
+
+  public String gameNotation() {
+    String[] letters = {"a", "b", "c", "d", "e", "f", "g", "h"};
+    return letters[xCoor - 1] + yCoor + "";
+  }
 }

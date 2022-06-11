@@ -5,24 +5,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import chess.movement.Move;
-import chess.movement.NonExistantMoveException;
 import chess.movement.Position;
 import chess.pieces.Color;
 import chess.pieces.King;
 import chess.pieces.Piece;
 
 public class Check {
-  private static boolean isLegalMove(Piece piece, Position endPos) {
-    Move move;
-    try {
-      move = new Move(piece.getCurrentPosition(), endPos);
-    } catch (NonExistantMoveException e) {
-      return false;
-    }
-
-    move.setCapture();
-    return piece.isLegalMove(move);
-  }
+  
   
 
   static boolean isInCheck(Board board, Color color) {

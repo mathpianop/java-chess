@@ -22,12 +22,13 @@ public class Messenger {
     //Add the pieces to the 2d array
     board.getPieces().forEach(piece -> {
       if (!piece.isCaptured()) {
-        printableBoard[piece.getCurrentPosition().yCoor - 1][piece.getCurrentPosition().xCoor - 1] =
+        printableBoard[8 - piece.getCurrentPosition().yCoor][(piece.getCurrentPosition().xCoor - 1) ] =
           piece.getSymbol();
       }
     });
 
     //Convert each row array to a single string and then print it
+    System.out.println();
     Arrays.stream(printableBoard)
           .map(row -> Arrays.stream(row)
                             .map(c -> c.toString())
@@ -70,7 +71,8 @@ public class Messenger {
   static Piece getPiece(Board board, Color color) {
     String inputString;
 
-    System.out.println("Enter starting position");
+    System.out.println();
+    System.out.println("Enter starting position, " + color);
       while (true) {
         inputString = getInput();
 
@@ -92,7 +94,7 @@ public class Messenger {
   static Position getEndPos(Board board, Piece piece) {
     String inputString;
 
-    System.out.println(piece + " to what position?");
+    System.out.println(piece + " " + piece.getCurrentPosition().gameNotation() + " to what position?");
     
       while (true) {
         inputString = getInput();
@@ -113,7 +115,7 @@ public class Messenger {
   static void summarizePlay(Play play) {
     Piece piece = play.piece;
    play.getMove().ifPresent(move -> {
-    System.out.println(piece + "to" + move.endPos);
+    System.out.println(piece + " " + move.startPos.gameNotation() + " to " + move.endPos.gameNotation());
    });
 
    play.targetPiece.ifPresent(targetPiece -> {
