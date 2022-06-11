@@ -28,7 +28,7 @@ public abstract class Piece {
   }
 
   public void undoMove() {
-    makeMove(new Move(lastMove.endPos, lastMove.startPos));
+    currentPosition =  lastMove.startPos;
     lastMove = null;
   }
 

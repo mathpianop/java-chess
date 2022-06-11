@@ -33,13 +33,14 @@ public class Pawn extends Piece {
   }
 
   private boolean isNonCaptureMove(Move move) {
-    Verticals direction = (color == Color.WHITE ? Verticals.UP : Verticals.DOWN);
-    return move.hd == Horizontals.INLINE && move.vd == direction;
+    Verticals forwardDirection = (color == Color.WHITE ? Verticals.UP : Verticals.DOWN);
+    return move.hd == Horizontals.INLINE && move.vd == forwardDirection;
   }
 
   private boolean isCaptureMove(Move move) {
+    Verticals forwardDirection = (color == Color.WHITE ? Verticals.UP : Verticals.DOWN);
     return (move.hd == Horizontals.RIGHT || move.hd == Horizontals.LEFT) &&
-            move.vd == Verticals.UP &&
+            move.vd == forwardDirection &&
             move.distance() == 1 &&
             move.isCapture();
   }

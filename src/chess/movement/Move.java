@@ -26,6 +26,10 @@ public class Move {
       throw new NonExistantMoveException("Positions must be on the board");
     }
 
+    if(startPos.equals(endPos)) {
+      throw new NonExistantMoveException("Start and end positions must be different");
+    }
+
     this.hd = Position.horizontalDirection(startPos, endPos);
     this.vd = Position.verticalDirection(startPos, endPos);
     
@@ -83,6 +87,10 @@ public class Move {
 
   public Move reverse() {
     return new Move(endPos, startPos);
+  }
+
+  public String toString() {
+    return startPos + " to " + endPos;
   }
   
 }

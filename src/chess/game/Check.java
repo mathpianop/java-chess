@@ -22,7 +22,8 @@ public class Check {
 
     move.setCapture();
     return piece.isLegalMove(move);
-  } 
+  }
+  
 
   static boolean isInCheck(Board board, Color color) {
     List<Piece> pieces = board.getPieces();
@@ -34,7 +35,9 @@ public class Check {
 
     return pieces.stream()
                   .filter(piece -> piece.color == color.opposite())
-                  .anyMatch(piece -> isLegalMove(piece, king.getCurrentPosition()));
+                  .filter(piece -> !piece.isCaptured())
+                  .map(piece -> new Play(board, piece, king.getCurrentPosition()))
+                  .anyMatch(Play::isPermissible);
   }
 
   static King getKing(List<Piece> pieces, Color color) {
@@ -52,7 +55,8 @@ public class Check {
 
     return pieces.stream()
                   .filter(piece -> piece.color == color.opposite())
-                  .filter(piece -> isLegalMove(piece, king.getCurrentPosition()))
+                  .filter(piece -> !piece.isCaptured())
+                  .filter(piece -> new Play(board, piece, king.getCurrentPosition()).isPermissible())
                   .collect(Collectors.toList());
   }
 
@@ -89,6 +93,7 @@ public class Check {
           .flatMap(defendingPiece -> getCounterAttacks(board, checkingPieces, defendingPiece))
           .anyMatch(Play::isPermissible);
 
+     
     if (canCaptureCheckingPiece) return false;
 
     boolean canBlockCheckingPiece = checkingPieces.stream()

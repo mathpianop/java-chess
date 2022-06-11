@@ -21,8 +21,10 @@ public class Messenger {
     
     //Add the pieces to the 2d array
     board.getPieces().forEach(piece -> {
-      printableBoard[piece.getCurrentPosition().yCoor - 1][piece.getCurrentPosition().xCoor - 1] =
-        piece.getSymbol();
+      if (!piece.isCaptured()) {
+        printableBoard[piece.getCurrentPosition().yCoor - 1][piece.getCurrentPosition().xCoor - 1] =
+          piece.getSymbol();
+      }
     });
 
     //Convert each row array to a single string and then print it

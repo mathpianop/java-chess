@@ -1,7 +1,6 @@
 package chess.movement;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 
 import java.util.List;
@@ -32,6 +31,14 @@ public class MoveTest {
       new Move(new Position(1,2), new Position(2,7));
     });
   }
+
+  @Test
+  public void constructorThrowsExceptionIfStartAndEndTheSame() {
+    assertThrows(NonExistantMoveException.class, () -> {
+      new Move(new Position(1,2), new Position(1,2));
+    });
+  }
+
 
   //getMidpoints  
 

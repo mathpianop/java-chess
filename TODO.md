@@ -1,0 +1,1 @@
+Condition for checking play isInCheck should be permissible play, not legal move

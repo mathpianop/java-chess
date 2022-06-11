@@ -277,7 +277,7 @@ public class PositionTest {
       pos1.getDiagonalShift(Horizontals.INLINE, Verticals.UP);
     });
 
-    Exception exception2 = assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(IllegalArgumentException.class, () -> {
       pos1.getDiagonalShift(Horizontals.RIGHT, Verticals.INLINE);
     });
 

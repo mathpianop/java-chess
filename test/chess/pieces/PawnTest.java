@@ -58,9 +58,18 @@ public class PawnTest {
     }
 
     @Test
-    public void isLegalMove_WorksForDiagonalOneIfCapture() {
+    public void isLegalMove_WorksForDiagonalOneIfCaptureWhite() {
       Pawn pawn = new Pawn(Color.WHITE, 1);
       Move move = new Move(pawn.getCurrentPosition(), new Position(2,3));
+      move.setCapture();
+
+      assertTrue(pawn.isLegalMove(move));
+    }
+
+    @Test
+    public void isLegalMove_WorksForDiagonalOneIfCaptureRed() {
+      Pawn pawn = new Pawn(Color.RED, 1);
+      Move move = new Move(pawn.getCurrentPosition(), new Position(2,6));
       move.setCapture();
 
       assertTrue(pawn.isLegalMove(move));

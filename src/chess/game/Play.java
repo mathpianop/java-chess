@@ -30,8 +30,7 @@ public class Play {
   }
 
   private Optional<Piece> findTargetPiece() {
-    return this.board.getPieceAt(endPos)
-              .filter(endPiece -> endPiece.color == piece.color.opposite());
+    return this.board.getPieceAt(endPos);
   }
 
   private boolean isValidMove() {
@@ -40,6 +39,11 @@ public class Play {
   }
 
   private boolean isLegalMove() {
+    targetPiece.ifPresent(testPiece -> {
+      if (testPiece.color == piece.color) {
+        move.setCapture();
+      }
+    });
     boolean isLegalMove = piece.isLegalMove(move);
     if (!isLegalMove) reason = "That is not a valid move for that piece";
     return isLegalMove;
@@ -61,7 +65,7 @@ public class Play {
     }
   }
 
-  private boolean isClear() {
+  public boolean isClear() {
     return midpointsClear() && !friendlyPieceOnEndpoint();
   }
 
@@ -86,7 +90,7 @@ public class Play {
   }
 
   public void reset() {
-    piece.makeMove(move.reverse());
+    piece.undoMove();
     targetPiece.ifPresent(p -> {
       p.setCaptured(false);
     });
@@ -96,7 +100,11 @@ public class Play {
     return Optional.ofNullable(move);
   }
 
-  String getReason() {
+  public String getReason() {
     return reason;
+  }
+
+  public String toString() {
+    return piece + " " + move;
   }
 }
