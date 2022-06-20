@@ -5,7 +5,6 @@ import chess.movement.*;
 public class Pawn extends Piece {
   char symbol;
   public String rank = "Pawn";
-  private boolean moved;
 
   public Pawn(Color color, int column) {
     super(color, getInitialPosition(color, column));
@@ -47,10 +46,5 @@ public class Pawn extends Piece {
 
   public boolean isLegalMove(Move move) {
    return (isCaptureMove(move) || isNonCaptureMove(move)) && isCorrectDistance(move);
-  }
-
-  public void makeMove(Move move) {
-    super.makeMove(move);
-    this.moved = true;
   }
 }

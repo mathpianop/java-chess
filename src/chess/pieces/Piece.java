@@ -9,6 +9,7 @@ public abstract class Piece implements Serializable {
   protected boolean captured;
   public final Color color;
   private Move lastMove;
+  protected boolean moved;
   public String rank = "Piece";
 
   public Piece(Color color, Position initialPosition) {
@@ -18,6 +19,7 @@ public abstract class Piece implements Serializable {
 
   
   public void makeMove(Move move) {
+    System.out.println("Parent Called");
     if (!currentPosition.equals(move.startPos)) {
       throw new IllegalArgumentException("Move must begin from piece's current position");
     }
@@ -27,6 +29,7 @@ public abstract class Piece implements Serializable {
     }
     currentPosition = move.endPos;
     lastMove = move;
+    
   }
 
   public void undoMove() {
@@ -40,6 +43,10 @@ public abstract class Piece implements Serializable {
 
   public void setCaptured(boolean bool) {
     captured = bool;
+  }
+
+  public void setMoved() {
+    this.moved = true;
   }
 
   public Position getCurrentPosition() {

@@ -25,6 +25,7 @@ public class Turn {
 
     //Make the play
     play.makePlay();
+    piece.setMoved();
 
     //Print summary of play and newBoard
     Messenger.summarizePlay(play);
