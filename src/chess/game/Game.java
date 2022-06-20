@@ -30,8 +30,4 @@ public class Game {
     Messenger.declareVictory(color.opposite());
 
   }
-
-  public static void main(String[] args) {
-    new Game().play();
-  }
 }

@@ -1,17 +1,31 @@
 package chess.game;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import chess.movement.Position;
 import chess.pieces.Color;
 import chess.pieces.Piece;
 
 public class Messenger {
-  private final static char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'h'};
+  private final static char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
   static Scanner scanner = new Scanner(System.in);
+
+  static String getInput() {
+    String inputString = scanner.nextLine();
+    if (inputString.equals("exit")) {
+      System.out.println("Goodbye...");
+      System.exit(0);
+    }
+    return inputString;
+  }
 
   static void printBoard(Board board) {
     Character[][] printableBoard = new Character[8][8];
@@ -59,14 +73,7 @@ public class Messenger {
     return new Position(xCoor, yCoor);
   }
 
-  static String getInput() {
-    String inputString = scanner.nextLine();
-    if (inputString.equals("exit")) {
-      System.out.println("Goodbye...");
-      System.exit(0);
-    }
-    return inputString;
-  }
+  
 
   static Piece getPiece(Board board, Color color) {
     String inputString;
@@ -125,7 +132,7 @@ public class Messenger {
 
   static void printWelcome() {
     System.out.println("Welcome to Java chess!");
-    System.out.println("For each turn, enter a starting position for your piece (or enter 'castle')");
+    System.out.println("For each turn, enter a starting position for your piece");
     System.out.println("Enter your position using a1, b4, e6, etc");
     System.out.println("a-h refer to the columns, 1-8 to the rows");
     System.out.println("a1 corresponds to the lower left hand corner, while h8 corresponds to the upper right");
@@ -134,5 +141,30 @@ public class Messenger {
 
   static void declareVictory(Color color) {
     System.out.println(color + "wins!");
+  }
+
+  static String askForOldOrNew() {
+    System.out.println("Start a new game or resume an old one? Enter 'new' or 'old'");
+    String response = getInput();
+    while (!response.equals("new") && !response.equals("old")) {
+      System.out.println("I do not understand");
+      System.out.println("Please enter 'old' or 'new'");
+      response = getInput();
+    }
+    return response;
+  }
+
+  static Path getGamePath() throws IOException {
+    try (Stream<Path> s = Files.list(Path.of("saved-games"))) {
+      List<Path> games = s.peek(System.out::println).collect(Collectors.toList());
+      System.out.println("Enter the name of one of these saved games");
+      String response = getInput();
+      while (!games.contains(Path.of(response))) {
+        System.out.println("No such game");
+        System.out.println("Enter the name of one of these saved games");
+        response = getInput();
+      }
+      return Path.of("saved-games", response);
+    }
   }
 }
