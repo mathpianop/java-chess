@@ -1,8 +1,10 @@
 package chess.pieces;
 
+import java.io.Serializable;
+
 import chess.movement.*;
 
-public abstract class Piece {
+public abstract class Piece implements Serializable {
   protected Position currentPosition;
   protected boolean captured;
   public final Color color;

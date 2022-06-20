@@ -1,11 +1,12 @@
 package chess.movement;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Move {
+public class Move implements Serializable {
   public final Position startPos;
   public final Position endPos;
   public final Horizontals hd;

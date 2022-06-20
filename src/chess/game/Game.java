@@ -1,33 +1,61 @@
 package chess.game;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import chess.pieces.Color;
 import chess.pieces.Piece;
 
-public class Game {
+public class Game implements Serializable {
   Board board;
+  private static Game currentGame;
+  private Color currentColor = Color.WHITE;
+  private String name;
 
   Game() {
     this.board = new Board();
   }
 
   void play() {
+    currentGame = this;
     Messenger.printWelcome();
     Messenger.printBoard(board);
-    Color color = Color.WHITE;
     List<Piece> checkingPieces = new ArrayList<>();
     do {
       //Take turn
-      Turn.takeTurn(board, color);
+      Turn.takeTurn(board, currentColor);
       //Switch which color's turn it is
-      color = color.opposite();
+      currentColor = currentColor.opposite();
       //Check for check
-      checkingPieces = Check.getCheckingPieces(board, color);
-    } while (checkingPieces.size() == 0 || !Check.checkmate(board, color, checkingPieces));
+      checkingPieces = Check.getCheckingPieces(board, currentColor);
+    } while (checkingPieces.size() == 0 || !Check.checkmate(board, currentColor, checkingPieces));
 
-    Messenger.declareVictory(color.opposite());
+    Messenger.declareVictory(currentColor.opposite());
 
+  }
+
+  public void save() throws IOException {
+    Path gamePath = (this.name == null ? Messenger.getNewGamePath() : Path.of("saved-games", this.name));
+    this.name = gamePath.getFileName().toString();
+    try(var oos = new ObjectOutputStream(
+                    new BufferedOutputStream(
+                      new FileOutputStream(gamePath.toFile())))) {
+                        
+      oos.writeObject(this);
+    } catch (IOException e) {
+      System.out.println("Could not save game");
+      System.out.println(e);
+      throw e;
+    }
+  }
+
+  public static void saveCurrent() throws IOException  {
+    currentGame.save();
   }
 }

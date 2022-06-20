@@ -23,6 +23,16 @@ public class Messenger {
     if (inputString.equals("exit")) {
       System.out.println("Goodbye...");
       System.exit(0);
+    } else if (inputString.equals("save")) {
+      try {
+        Game.saveCurrent();
+      } catch (IOException e) {
+        return getInput();
+      }
+      
+      System.out.println("Saving Game");
+      System.out.println("Goodbye...");
+      System.exit(0);
     }
     return inputString;
   }
@@ -154,17 +164,42 @@ public class Messenger {
     return response;
   }
 
-  static Path getGamePath() throws IOException {
+  static Path getOldGamePath() throws IOException {
     try (Stream<Path> s = Files.list(Path.of("saved-games"))) {
-      List<Path> games = s.peek(System.out::println).collect(Collectors.toList());
+      System.out.println();
       System.out.println("Enter the name of one of these saved games");
+      System.out.println("=====================");
+      List<Path> games = s.map(p -> p.getFileName())
+                          .peek(System.out::println)
+                          .collect(Collectors.toList());
+      System.out.println("=====================");
       String response = getInput();
       while (!games.contains(Path.of(response))) {
         System.out.println("No such game");
         System.out.println("Enter the name of one of these saved games");
+        System.out.println("=====================");
+        games.forEach(System.out::println);
+        System.out.println("=====================");
         response = getInput();
       }
       return Path.of("saved-games", response);
     }
+  }
+
+  static Path getNewGamePath() throws IOException {
+    try (Stream<Path> s = Files.list(Path.of("saved-games"))) {
+      List<Path> savedGamePaths = s.collect(Collectors.toList());
+      System.out.println("Enter the name of the game");
+      Path response = Path.of("saved-games", getInput());
+      while (savedGamePaths.contains(response)) {
+        System.out.println("There is already a saved game with that name.");
+        System.out.println("Please enter the name of the game");
+        response = Path.of("saved-games", getInput());
+      }
+
+      return response;
+    
+    }
+    
   }
 }

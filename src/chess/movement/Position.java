@@ -1,6 +1,8 @@
 package chess.movement;
 
-public class Position {
+import java.io.Serializable;
+
+public class Position implements Serializable {
   public final int xCoor;
   public final int yCoor;
 

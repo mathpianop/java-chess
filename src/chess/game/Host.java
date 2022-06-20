@@ -17,23 +17,24 @@ public class Host {
     }
   }
 
-  static private Game determineGame() throws Exception{
-    String response = Messenger.askForOldOrNew();
-    if (response.equals("new")) {
-      return new Game();
-    } else {
-      Path gamePath = Messenger.getGamePath();
-      return deserializeGame(gamePath);
-    }
-  }
-  public static void main(String[] args) {
-    Game game;
+  static private Game determineGame(){
     try {
-      game = determineGame();
+      String response = Messenger.askForOldOrNew();
+      if (response.equals("new")) {
+        return new Game();
+      } else {
+        Path gamePath = Messenger.getOldGamePath();
+        return deserializeGame(gamePath);
+      }
     } catch (Exception e) {
       System.out.println(e);
-      game = new Game();
+      return determineGame();
     }
+    
+  }
+  public static void main(String[] args) {
+    Game game = determineGame();
     game.play();
+    
   }
 }

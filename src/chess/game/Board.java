@@ -1,5 +1,6 @@
 package chess.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +8,7 @@ import java.util.Optional;
 import chess.movement.Position;
 import chess.pieces.*;
 
-public class Board {
+public class Board implements Serializable {
 
   private final List<Piece> pieces;
 
