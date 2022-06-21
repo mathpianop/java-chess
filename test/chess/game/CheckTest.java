@@ -87,7 +87,8 @@ public class CheckTest {
   @Test 
   public void isInCheck_ReturnsFalseIfNotInCheck() {
     Board board = new Board();
-    assertFalse(Check.isInCheck(board, Color.WHITE));
+    Check check = new Check(board, Color.WHITE);
+    assertFalse(check.isInCheck());
   }
 
   @Test 
@@ -106,7 +107,8 @@ public class CheckTest {
     Move move = new Move(queenPos, pawnPos1);
     board.getPieceAt(queenPos).get().makeMove(move);
 
-    assertTrue(Check.isInCheck(board, Color.RED));
+    Check check = new Check(board, Color.RED);
+    assertTrue(check.isInCheck());
   }
 
   @Test
@@ -115,7 +117,8 @@ public class CheckTest {
 
     King king = (King) board.getPieceAt(new Position(5,1)).get();
 
-    assertSame(king, Check.getKing(board.getPieces(), Color.WHITE));
+    Check check = new Check(board, Color.WHITE);
+    assertSame(king, check.getKing(board.getPieces()));
   }
 
   @Test 
@@ -136,7 +139,8 @@ public class CheckTest {
 
     queen.makeMove(move);
 
-    List<Piece> checkingPieces = Check.getCheckingPieces(board, Color.RED);
+    Check check = new Check(board, Color.RED);
+    List<Piece> checkingPieces = check.getCheckingPieces();
 
     assertSame(queen, checkingPieces.get(0));
     assertEquals(checkingPieces.size(), 1);
@@ -172,7 +176,8 @@ public class CheckTest {
     Move move3 = new Move(queenPos, pawnPos1);
     queen.makeMove(move3);
 
-    List<Piece> checkingPieces = Check.getCheckingPieces(board, Color.RED);
+    Check check = new Check(board, Color.RED);
+    List<Piece> checkingPieces = check.getCheckingPieces();
 
    
     assertTrue(checkingPieces.contains(queen));
@@ -194,7 +199,8 @@ public class CheckTest {
     Move move3 = new Move(queenPos, pawnPos1);
     queen.makeMove(move3);
 
-    List<Piece> checkingPieces = Check.getCheckingPieces(board, Color.RED);
+    Check check = new Check(board, Color.RED);
+    List<Piece> checkingPieces = check.getCheckingPieces();
 
 
     assertFalse(checkingPieces.contains(queen));
@@ -204,20 +210,25 @@ public class CheckTest {
   public void checkmate_ReturnsFalseIfKingCanEscape() {
     Board board = CheckScenarios.escape();
     Piece queen = board.getPieceAt(CheckScenarios.whitePawn1).get();
-    assertFalse(Check.checkmate(board, Color.RED, List.of(queen)));
+
+    Check check = new Check(board, Color.RED);
+    assertFalse(check.checkmate(List.of(queen)));
   }
 
   @Test
   public void checkmate_ReturnsFalseIfFriendlyPieceCanBlock() {
     Board board = CheckScenarios.block();
     Piece queen = board.getPieceAt(CheckScenarios.whitePawn1).get();
-    assertFalse(Check.checkmate(board, Color.RED, List.of(queen)));
+
+    Check check = new Check(board, Color.RED);
+    assertFalse(check.checkmate(List.of(queen)));
   }
 
   @Test
   public void checkmate_ReturnsFalseIfFriendlyPieceCanCapture() {
     Board board = CheckScenarios.capture();
     Piece knight = board.getPieceAt(CheckScenarios.knightTransit3).get();
-    assertFalse(Check.checkmate(board, Color.RED, List.of(knight)));
+    Check check = new Check(board, Color.RED);
+    assertFalse(check.checkmate(List.of(knight)));
   }
 }

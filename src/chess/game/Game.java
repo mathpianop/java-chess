@@ -27,14 +27,15 @@ public class Game implements Serializable {
     Messenger.printWelcome();
     Messenger.printBoard(board);
     List<Piece> checkingPieces = new ArrayList<>();
+    Check check = new Check(board, currentColor);
     do {
       //Take turn
       Turn.takeTurn(board, currentColor);
       //Switch which color's turn it is
       currentColor = currentColor.opposite();
       //Check for check
-      checkingPieces = Check.getCheckingPieces(board, currentColor);
-    } while (checkingPieces.size() == 0 || !Check.checkmate(board, currentColor, checkingPieces));
+      checkingPieces = check.getCheckingPieces();
+    } while (checkingPieces.size() == 0 || !check.checkmate(checkingPieces));
 
     Messenger.declareVictory(currentColor.opposite());
 

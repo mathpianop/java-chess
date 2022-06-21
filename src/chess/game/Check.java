@@ -11,10 +11,18 @@ import chess.pieces.King;
 import chess.pieces.Piece;
 
 public class Check {
+
+  Board board;
+  Color color;
+
+  public Check(Board board, Color threatenedColor) {
+    this.board = board;
+    this.color = threatenedColor;
+  }
   
   
 
-  static boolean isInCheck(Board board, Color color) {
+  boolean isInCheck() {
     List<Piece> pieces = board.getPieces();
     Piece king = pieces.stream()
                       .filter(piece -> piece.color == color)
@@ -29,7 +37,7 @@ public class Check {
                   .anyMatch(Play::isPermissible);
   }
 
-  static King getKing(List<Piece> pieces, Color color) {
+  King getKing(List<Piece> pieces) {
     return pieces.stream()
                 .filter(piece -> piece.color == color)
                 .filter(King.class::isInstance)
@@ -38,9 +46,9 @@ public class Check {
                 .get();
   }
 
-  static List<Piece> getCheckingPieces(Board board, Color color) {
+  List<Piece> getCheckingPieces() {
     List<Piece> pieces = board.getPieces();
-    Piece king = getKing(pieces, color);
+    Piece king = getKing(pieces);
 
     return pieces.stream()
                   .filter(piece -> piece.color == color.opposite())
@@ -51,23 +59,23 @@ public class Check {
 
   
 
-  private static Stream<Play> getCounterAttacks(Board board, List<Piece> checkingPieces, Piece defendingPiece) {
+  private Stream<Play> getCounterAttacks(List<Piece> checkingPieces, Piece defendingPiece) {
     return checkingPieces.stream()
                 .map(Piece::getCurrentPosition)
                 .map(checkingPos -> new Play(board, defendingPiece, checkingPos));
   }
 
-  private static Stream<Play> getBlockingPlays(Board board, List<Piece> pieces, Color threatenedColor, Position midpoint) {
+  private Stream<Play> getBlockingPlays(List<Piece> pieces, Position midpoint) {
     return pieces.stream()
-                    .filter(piece -> piece.color == threatenedColor)
+                    .filter(piece -> piece.color == color)
                     .map(defendingPiece -> new Play(board, defendingPiece, midpoint));
   }
 
 
 
-  static boolean checkmate(Board board, Color threatenedColor, List<Piece> checkingPieces) {
+  boolean checkmate(List<Piece> checkingPieces) {
     List<Piece> pieces = board.getPieces();
-    King king = getKing(pieces, threatenedColor);
+    King king = getKing(pieces);
 
     boolean canEscape = king.getLegalEndPositions()
                             .stream()
@@ -78,8 +86,8 @@ public class Check {
 
 
     boolean canCaptureCheckingPiece = pieces.stream()
-          .filter(piece -> piece.color == threatenedColor)
-          .flatMap(defendingPiece -> getCounterAttacks(board, checkingPieces, defendingPiece))
+          .filter(piece -> piece.color == color)
+          .flatMap(defendingPiece -> getCounterAttacks(checkingPieces, defendingPiece))
           .anyMatch(Play::isPermissible);
 
      
@@ -89,7 +97,7 @@ public class Check {
                   .map(Piece::getCurrentPosition)
                   .map(checkingPos -> new Move(checkingPos, king.getCurrentPosition()))
                   .flatMap(move -> move.getMidpoints().stream())
-                  .flatMap(midpoint -> getBlockingPlays(board, pieces, threatenedColor, midpoint))
+                  .flatMap(midpoint -> getBlockingPlays(pieces, midpoint))
                   .anyMatch(Play::isPermissible);
     
     if (canBlockCheckingPiece) return false;

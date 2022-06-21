@@ -72,7 +72,8 @@ public class Play {
   private boolean isSafe() {
     boolean safe;
     makePlay();
-    safe = !Check.isInCheck(board, piece.color);
+    Check check = new Check(board, piece.color);
+    safe = !check.isInCheck();
     reset();
     if (!safe) reason = "That move puts your king in check";
     return safe;

@@ -19,7 +19,6 @@ public abstract class Piece implements Serializable {
 
   
   public void makeMove(Move move) {
-    System.out.println("Parent Called");
     if (!currentPosition.equals(move.startPos)) {
       throw new IllegalArgumentException("Move must begin from piece's current position");
     }
